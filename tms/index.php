@@ -95,20 +95,41 @@ include('includes/config.php');
 <!--Package-->
 <section id="packages" class="secPad">
   <div class="container">
-    <div class="heading text-center">
-      <!-- Heading -->
-      <h2>Most Popular Packagess</h2>
-      <p>You can view details for any sent or received package on the Package Details pageeeee.</p>
+    <h3>Select your month</h3>
+      <div class="dropdown">
+      <br/>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Month
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/index.php?month=December 2022">December 2022<br/></a>
+        <a class="dropdown-item" href="/index.php?month=January 2023">January 2023<br/></a>
+        <a class="dropdown-item" href="/index.php?month=February 2023">February 2023<br/></a>
+      </div>
     </div>
+    <br/>
     <div class="">
-      <h3>Package List</h3>
-      <?php $sql = "SELECT * from tbltourpackages order by rand() ";
+      
+      <?php 
+      $month=$_GET['month'];
+      //echo $month;
+      $sql = "SELECT * from tbltourpackages where avail_month=:mon;";
       $query = $dbh->prepare($sql);
+      $query->bindParam(':mon',$month,PDO::PARAM_STR);
       $query->execute();
       $results=$query->fetchAll(PDO::FETCH_OBJ);
       $cnt=1;
+
+
       if($query->rowCount() > 0)
       {
+        ?>
+          <div class="heading text-center">
+      
+          <h2>Most Popular Packagess</h2>
+          <p>You can view details for any sent or received package on the Package Details page.</p>
+          </div>
+        <?php
         foreach($results as $result)
         { 
           ?>

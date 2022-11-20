@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2022 at 01:55 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Nov 20, 2022 at 07:38 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,8 +56,8 @@ CREATE TABLE `requests` (
   `RequestId` int(5) NOT NULL,
   `RequestDate` date NOT NULL,
   `PackageId` int(5) NOT NULL,
-  `Manager` varchar(50) NOT NULL,
-  `NoOfppl` int(5) NOT NULL
+  `NoOfkids` int(5) NOT NULL,
+  `NoOfadults` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -113,6 +113,7 @@ CREATE TABLE `tblbooking` (
   `UserEmail` varchar(100) DEFAULT NULL,
   `FromDate` varchar(100) DEFAULT NULL,
   `ToDate` varchar(100) DEFAULT NULL,
+  `Start_location` varchar(50) NOT NULL,
   `Comment` mediumtext DEFAULT NULL,
   `RegDate` timestamp NULL DEFAULT current_timestamp(),
   `status` int(11) DEFAULT NULL,
@@ -126,22 +127,31 @@ CREATE TABLE `tblbooking` (
 -- Dumping data for table `tblbooking`
 --
 
-INSERT INTO `tblbooking` (`BookingId`, `PackageId`, `UserEmail`, `FromDate`, `ToDate`, `Comment`, `RegDate`, `status`, `CancelledBy`, `UpdationDate`, `NoOfAdults`, `NoOfChildren`) VALUES
-(13, 5, 'gerald@gmail.com', '2020-12-11', '2020-12-11', 'Real i need to tour that place', '2020-12-11 12:13:17', 1, '', '2021-01-14 18:35:06', 0, 0),
-(14, 2, 'gerald@gmail.com', '2021-01-12', '2021-01-15', 'kk', '2021-01-12 19:49:39', 2, 'u', '2021-01-14 11:20:42', 0, 0),
-(15, 4, 'gerald@gmail.com', '2021-01-14', '2021-01-16', 'tour', '2021-01-14 08:19:44', 2, 'u', '2021-02-15 08:56:58', 0, 0),
-(16, 2, 'gerald@gmail.com', '2021-03-26', '2021-03-31', 'I Really need to visit that place', '2021-03-24 22:48:36', 1, NULL, '2022-11-10 01:01:03', 0, 0),
-(17, 6, 'admin@gmail.com', '2021-07-28', '2021-07-30', 'Test', '2021-07-24 09:51:52', 2, 'a', '2021-07-24 10:04:22', 0, 0),
-(18, 1, 'admin@gmail.com', '2021-07-24', '2021-07-26', 'smart travel test', '2021-07-24 09:59:34', 1, NULL, '2021-07-24 10:01:21', 0, 0),
-(19, 4, 'janhavikokadwar@gmail.com', '2022-11-12', '2022-11-25', 'asdfghjkl;', '2022-11-10 08:45:19', 1, NULL, '2022-11-10 08:46:05', 0, 0),
-(20, 4, 'janhavikokadwar@gmail.com', '2022-11-11', '2022-12-02', 'asdfghjkl[]poiuytfdcvbn', '2022-11-13 07:16:20', 1, NULL, '2022-11-13 07:16:47', 0, 0),
-(21, 6, 'janhavikokadwar@gmail.com', '2022-11-24', '2022-12-03', 'sdfghjkl;', '2022-11-13 09:35:54', 1, NULL, '2022-11-15 04:06:08', 0, 0),
-(22, 17, 'abc@gml', '2020-12-11', '2020-12-16', 'aldshj', '2022-11-13 10:41:38', 1, NULL, NULL, 0, 0),
-(23, 4, 'janhavikokadwar@gmail.com', '2022-11-25', '2022-11-10', 'dfghjkl;\'\r\n', '2022-11-13 11:11:02', 0, NULL, NULL, 0, 0),
-(24, 2, 'janhavikokadwar@gmail.com', '2022-11-13', '2022-11-19', 'lsnlsnd', '2022-11-13 11:19:33', 0, NULL, NULL, 55, 0),
-(25, 2, 'janhavikokadwar@gmail.com', '2022-11-12', '2022-11-20', 'qqq', '2022-11-13 11:54:05', 0, NULL, NULL, 66, 0),
-(26, 1, 'janhavikokadwar@gmail.com', '2022-11-13', '2022-11-17', 'jjj', '2022-11-13 12:00:01', 0, NULL, NULL, 55, 0),
-(27, 1, 'janhavikokadwar@gmail.com', '2022-11-06', '2022-11-13', 'qwert', '2022-11-13 12:00:49', 0, NULL, NULL, 6, 0);
+INSERT INTO `tblbooking` (`BookingId`, `PackageId`, `UserEmail`, `FromDate`, `ToDate`, `Start_location`, `Comment`, `RegDate`, `status`, `CancelledBy`, `UpdationDate`, `NoOfAdults`, `NoOfChildren`) VALUES
+(13, 5, 'gerald@gmail.com', '2020-12-11', '2020-12-11', '', 'Real i need to tour that place', '2020-12-11 12:13:17', 1, '', '2021-01-14 18:35:06', 0, 0),
+(14, 2, 'gerald@gmail.com', '2021-01-12', '2021-01-15', '', 'kk', '2021-01-12 19:49:39', 2, 'u', '2021-01-14 11:20:42', 0, 0),
+(15, 4, 'gerald@gmail.com', '2021-01-14', '2021-01-16', '', 'tour', '2021-01-14 08:19:44', 2, 'u', '2021-02-15 08:56:58', 0, 0),
+(16, 2, 'gerald@gmail.com', '2021-03-26', '2021-03-31', '', 'I Really need to visit that place', '2021-03-24 22:48:36', 1, NULL, '2022-11-10 01:01:03', 0, 0),
+(17, 6, 'admin@gmail.com', '2021-07-28', '2021-07-30', '', 'Test', '2021-07-24 09:51:52', 2, 'a', '2021-07-24 10:04:22', 0, 0),
+(18, 1, 'admin@gmail.com', '2021-07-24', '2021-07-26', '', 'smart travel test', '2021-07-24 09:59:34', 1, NULL, '2021-07-24 10:01:21', 0, 0),
+(19, 4, 'janhavikokadwar@gmail.com', '2022-11-12', '2022-11-25', '', 'asdfghjkl;', '2022-11-10 08:45:19', 1, NULL, '2022-11-10 08:46:05', 0, 0),
+(20, 4, 'janhavikokadwar@gmail.com', '2022-11-11', '2022-12-02', '', 'asdfghjkl[]poiuytfdcvbn', '2022-11-13 07:16:20', 1, NULL, '2022-11-13 07:16:47', 0, 0),
+(21, 6, 'janhavikokadwar@gmail.com', '2022-11-24', '2022-12-03', '', 'sdfghjkl;', '2022-11-13 09:35:54', 1, NULL, '2022-11-15 04:06:08', 0, 0),
+(22, 17, 'abc@gml', '2020-12-11', '2020-12-16', '', 'aldshj', '2022-11-13 10:41:38', 1, NULL, NULL, 0, 0),
+(23, 4, 'janhavikokadwar@gmail.com', '2022-11-25', '2022-11-10', '', 'dfghjkl;\'\r\n', '2022-11-13 11:11:02', 0, NULL, NULL, 0, 0),
+(24, 2, 'janhavikokadwar@gmail.com', '2022-11-13', '2022-11-19', '', 'lsnlsnd', '2022-11-13 11:19:33', 0, NULL, NULL, 55, 0),
+(25, 2, 'janhavikokadwar@gmail.com', '2022-11-12', '2022-11-20', '', 'qqq', '2022-11-13 11:54:05', 0, NULL, NULL, 66, 0),
+(26, 1, 'janhavikokadwar@gmail.com', '2022-11-13', '2022-11-17', '', 'jjj', '2022-11-13 12:00:01', 0, NULL, NULL, 55, 0),
+(27, 1, 'janhavikokadwar@gmail.com', '2022-11-06', '2022-11-13', '', 'qwert', '2022-11-13 12:00:49', 0, NULL, NULL, 6, 0),
+(28, 5, 'janhavikokadwar@gmail.com', '2022-11-18', '2022-11-26', 'delhi', 'vv', '2022-11-20 17:39:43', 0, NULL, NULL, 25, 25),
+(29, 5, 'janhavikokadwar@gmail.com', '2022-11-10', '2022-11-18', 'mumbai', 'tt', '2022-11-20 17:41:11', 0, NULL, NULL, 5, 5),
+(30, 6, 'janhavikokadwar@gmail.com', '2022-11-17', '2022-11-19', 'delhi', 'BRUH', '2022-11-20 18:09:16', 0, NULL, NULL, 5, 5),
+(31, 4, 'janhavikokadwar@gmail.com', '2022-11-18', '2022-11-23', 'delhi', 'LALALA', '2022-11-20 18:12:16', 0, NULL, NULL, 5, 5),
+(32, 4, 'janhavikokadwar@gmail.com', '2022-11-26', '2022-11-29', 'delhi', 'BRRR', '2022-11-20 18:14:49', 0, NULL, NULL, 5, 5),
+(33, 4, 'janhavikokadwar@gmail.com', '2022-11-17', '2022-11-20', 'delhi', 'GAGA', '2022-11-20 18:17:49', 0, NULL, NULL, 4, 4),
+(34, 4, 'janhavikokadwar@gmail.com', '2022-11-18', '2022-11-21', 'delhi', 'ff', '2022-11-20 18:22:44', 0, NULL, NULL, 3, 3),
+(35, 4, 'janhavikokadwar@gmail.com', '2022-11-18', '2022-11-23', 'delhi', 'GG', '2022-11-20 18:23:59', 0, NULL, NULL, 4, 4),
+(36, 5, 'janhavikokadwar@gmail.com', '2022-11-19', '2022-11-21', 'mumbai', 'GWAK', '2022-11-20 18:26:02', 0, NULL, NULL, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -181,6 +191,7 @@ CREATE TABLE `tbltourpackages` (
   `PackageName` varchar(200) DEFAULT NULL,
   `PackageType` varchar(150) DEFAULT NULL,
   `PackageLocation` varchar(100) DEFAULT NULL,
+  `avail_month` varchar(50) NOT NULL DEFAULT 'December 2022',
   `PackagePrice` int(11) DEFAULT NULL,
   `PackageFetures` varchar(255) DEFAULT NULL,
   `PackageDetails` mediumtext DEFAULT NULL,
@@ -194,13 +205,13 @@ CREATE TABLE `tbltourpackages` (
 -- Dumping data for table `tbltourpackages`
 --
 
-INSERT INTO `tbltourpackages` (`PackageId`, `PackageName`, `PackageType`, `PackageLocation`, `PackagePrice`, `PackageFetures`, `PackageDetails`, `PackageImage`, `Creationdate`, `UpdationDate`, `AvailableBookings`) VALUES
-(1, 'kidepo valley Np', 'General', 'Kullu Manali India', 50000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'lake.jpg', '2017-05-13 14:23:44', '2022-11-16 08:16:24', 67),
-(2, 'Entebbe Zoo', 'Indoor animals', 'Entebbe, Kampala,Uganda', 5433, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'zoo.jpg', '2017-05-13 15:24:26', '2022-11-16 08:03:22', 100),
-(3, 'Marchision Falls NP', 'Outdoor animals', 'Demo Demo Demo Demo Demo Demo  test', 1000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'mac4.jpg', '2017-05-13 16:00:58', '2022-11-16 08:03:29', 100),
-(4, 'Lake Mburo NP', 'Familty and Couple', 'Kerlal', 2000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'images.jpg', '2017-05-13 22:39:37', '2022-11-16 08:03:35', 100),
-(5, 'Queen Elizabeth', 'Outdoor animals', 'Uganda', 3000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'park6.jpg', '2017-05-13 22:42:10', '2022-11-16 08:04:42', 100),
-(6, 'Bwindi  NP', 'Outdoor animals', 'Indonesia', 5000, 'Frree wifi, pickup and drop etc', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'bwindi5.jpg', '2017-05-14 08:01:08', '2022-11-16 08:04:52', 100);
+INSERT INTO `tbltourpackages` (`PackageId`, `PackageName`, `PackageType`, `PackageLocation`, `avail_month`, `PackagePrice`, `PackageFetures`, `PackageDetails`, `PackageImage`, `Creationdate`, `UpdationDate`, `AvailableBookings`) VALUES
+(1, 'kidepo valley Np', 'General', 'Kullu Manali India', 'December 2022', 50000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'lake.jpg', '2017-05-13 14:23:44', '2022-11-20 16:56:57', 67),
+(2, 'Entebbe Zoo', 'Indoor animals', 'Entebbe, Kampala,Uganda', 'December 2022', 5433, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'zoo.jpg', '2017-05-13 15:24:26', '2022-11-20 16:57:06', 100),
+(3, 'Marchision Falls NP', 'Outdoor animals', 'Demo Demo Demo Demo Demo Demo  test', 'January 2023', 1000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'mac4.jpg', '2017-05-13 16:00:58', '2022-11-20 16:57:32', 100),
+(4, 'Lake Mburo NP', 'Familty and Couple', 'Kerlal', 'December 2022', 2000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'images.jpg', '2017-05-13 22:39:37', '2022-11-20 18:23:59', 61),
+(5, 'Queen Elizabeth', 'Outdoor animals', 'Uganda', 'February 2023', 3000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'park6.jpg', '2017-05-13 22:42:10', '2022-11-20 18:26:02', 85),
+(6, 'Bwindi  NP', 'Outdoor animals', 'Indonesia', 'December 2022', 5000, 'Frree wifi, pickup and drop etc', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'bwindi5.jpg', '2017-05-14 08:01:08', '2022-11-20 16:57:20', 100);
 
 -- --------------------------------------------------------
 
@@ -301,7 +312,7 @@ ALTER TABLE `tbladmin`
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `BookingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `BookingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tblcompany`

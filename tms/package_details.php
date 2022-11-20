@@ -12,42 +12,54 @@ if(isset($_POST['submit2']))
 	$status=0;
 	$num=$_POST['number'];
 	$num2=$_POST['number2'];
-	echo $days;
+
+	$location=$_POST['location'];
 	$cost=0;
-
-
-	$sql="INSERT INTO tblbooking(PackageId,UserEmail,FromDate,ToDate,Comment,status,NoOfAdults,NoOfChildren) VALUES(:pid,:useremail,:fromdate,:todate,:comment,:status,:ppl,:children)";
-	$query = $dbh->prepare($sql);
-	$query->bindParam(':pid',$pid,PDO::PARAM_STR);
-	$query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
-	$query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
-	$query->bindParam(':todate',$todate,PDO::PARAM_STR);
-	$query->bindParam(':comment',$comment,PDO::PARAM_STR);
-	$query->bindParam(':status',$status,PDO::PARAM_STR);
-	$query->bindParam(':ppl',$num,PDO::PARAM_STR);
-	$query->bindParam(':children',$num2,PDO::PARAM_STR);
-	$query->execute();
-	$lastInsertId = $dbh->lastInsertId();
-
 
 	$sub="SELECT AvailableBookings FROM tbltourpackages where PackageId=:pid";
 	$query=$dbh->prepare($sub);
-	$query->bindParam(':pid',$pid,PDO::PARAM_STR);
+	$query->bindParam(':pid',$pid,PDO::PARAM_INT);
 	$query->execute();
-	$results=$query->fetch(PDO::FETCH_OBJ);
-	$bookings=$result[0];
-	
-	echo $result[0];
+	$results=$query->fetch();
 
-	if($lastInsertId)
+	if(intval($results[0])<($num+$num2))
 	{
-		echo '<script>alert("Booked Scuccessfully . Thank you")</script>';
+		echo "<script>alert('Not enough slots available')</script>";
 	}
-	else 
+	else
 	{
-		echo '<script>alert("Something Went Wrong. Please try again")</script>';
-	}
+		$sql="INSERT INTO tblbooking(PackageId,UserEmail,FromDate,ToDate,Start_location,Comment,status,NoOfAdults,NoOfChildren) VALUES(:pid,:useremail,:fromdate,:todate,:location,:comment,:status,:ppl,:children)";
+		$query = $dbh->prepare($sql);
+		$query->bindParam(':pid',$pid,PDO::PARAM_STR);
+		$query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
+		$query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
+		$query->bindParam(':todate',$todate,PDO::PARAM_STR);
+		$query->bindParam(':location',$location,PDO::PARAM_STR);
+		$query->bindParam(':comment',$comment,PDO::PARAM_STR);
+		$query->bindParam(':status',$status,PDO::PARAM_STR);
+		$query->bindParam(':ppl',$num,PDO::PARAM_STR);
+		$query->bindParam(':children',$num2,PDO::PARAM_STR);
+		$query->execute();
+		$lastInsertId = $dbh->lastInsertId();
 
+		$updated_avail=$results[0]-intval($num)-intval($num2);
+
+		$updater="UPDATE tbltourpackages set AvailableBookings=:updated_value where PackageId=:pid;";
+		
+		$upquery=$dbh->prepare($updater);
+		$upquery->bindParam(':updated_value',$updated_avail,PDO::PARAM_INT);
+		$upquery->bindParam(':pid',$pid,PDO::PARAM_STR);
+		$upquery->execute();
+
+		if($lastInsertId)
+		{
+			echo '<script>alert("Booked Scuccessfully . Thank you")</script>';
+		}
+		else 
+		{
+			echo '<script>alert("Something Went Wrong. Please try again")</script>';
+		}
+	}
 }
 ?>
 <!doctype html>
@@ -192,7 +204,7 @@ if(isset($_POST['submit2']))
 									<h2><?php echo htmlentities($result->PackageName);?></h2>
 									<p class="dow">#PKG-<?php echo htmlentities($result->PackageId);?></p>
 									<p><b>Package Type :</b> <?php echo htmlentities($result->PackageType);?></p>
-									<p><b>Package Location :</b> <?php echo htmlentities($result->PackageLocation);?></p>
+									<p><b>Destination :</b> <?php echo htmlentities($result->PackageLocation);?></p>
 									<p><b>Features</b> <?php echo htmlentities($result->PackageFetures);?></p>
 
 									<div class="clearfix"></div>
@@ -201,6 +213,7 @@ if(isset($_POST['submit2']))
 										<?php
 
 									if(isset($_POST['cost'])){
+
 										$stmt = $dbh->prepare("SELECT PackagePrice from tbltourpackages where PackageId=:pid");
 										$stmt->execute([':pid' => $pid]); 
 										$user = $stmt->fetch();
@@ -216,21 +229,24 @@ if(isset($_POST['submit2']))
 										$query=$dbh->prepare($sub);
 										$query->bindParam(':pid',$pid,PDO::PARAM_INT);
 										$query->execute();
-										$results=$query->fetch(PDO::FETCH_OBJ);
-										$bookings=intval($result[0]);
-
-
-										// echo "$base <br/>";
-										// echo "$num <br/>";
-										// echo "$days <br/>";
-
+										$results=$query->fetch();
 										
-										//$cost = ($base*$days*$num*$num2/2);
-										$cost=$bookings;
-										
+										if(intval($results[0])<($num+$num2))
+										{
+											echo "<h3>Not enough slots available</h3>";
+										}
+										else{
+											$location=$_POST['location'];
+											$cost = ($base*$days*$num*$num2/2);
 
-										echo "<h3>$cost</h3>" ; 
-										echo "<script>alert('cost is $cost')</script>" ; 
+											if($location=="delhi")
+												$cost+=5000;
+											
+											$requests
+
+											echo "<h3>$cost</h3>" ; 
+											echo "<script>alert('cost is $cost')</script>" ; 
+										}
 									}
 										?>
 										
@@ -241,10 +257,17 @@ if(isset($_POST['submit2']))
 								<div class="clearfix"></div>
 							</div>
 							<form name="book" method="post">
+								
 								<div class="selectroom_top">
-									<div class="selectroom-info animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp; margin-top: -70px">
+									
+									<div class="selectroom-info animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp; margin-top: -50px">
+									
 										<div class="ban-bottom">
-											<br>
+											<label class="inputLabel">Start</label>
+											
+												<input type="radio" class="dropdown-item" name="location" value="delhi">New Delhi<br/></input>
+												<input type="radio" class="dropdown-item" name="location" value="mumbai">Mumbai<br/></input>
+											<br/>
 											<div class=" col-md-6 mr-2 ">
 												<label class="inputLabel">From</label>
 												<input class="form-control" id="datepicker" type="date" placeholder="dd-mm-yyyy"  name="fromdate" required="">
@@ -274,7 +297,7 @@ if(isset($_POST['submit2']))
 
 											<li class="spe">
 												<label class="inputLabel">Comment</label>
-												<textarea  class="form-control" rows="4" cols="4" type="text" name="comment" required=""></textarea>
+												<textarea  class="form-control" rows="4" cols="4" type="text" name="comment"></textarea>
 											</li>
 											<?php if($_SESSION['login'])
 											{?>
