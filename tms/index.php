@@ -61,7 +61,7 @@ include('includes/config.php');
 <section id="introText">
   <div class="container">
     <div class="text-center adeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
-      <h1>My Travel Gives You a Great Holiday Packageeeeee</h1>
+      <h1>My Travel Gives You a Great Holiday Package</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum erat et neque tincidunt volutpat. Cras eget augue id dui varius pretium. Cras posuere dolor risus. Pellentesque elementum ultricies quam, sit amet rhoncus nisl viverra in. Cras imperdiet nisi a euismod molestie. Ut a metus arcu. </p>
     </div>
   </div>
@@ -98,7 +98,7 @@ include('includes/config.php');
     <h3>Select your month</h3>
       <div class="dropdown">
       <br/>
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Month
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

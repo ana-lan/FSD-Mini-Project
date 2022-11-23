@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <!DOCTYPE books SYSTEM "books.dtd"> -->
+<?xml-model href="book.xsd" type="application/xml"
+schematypens="http://www.w3.org/2001/XMLSchema"?>
+<!-- add stylesheet -->
+<?xml-stylesheet type="text/xsl" href="book.xsl"?>
+
+<book>
+<book>
+<title>The C Programming Language</title>
+<author>Dennis Ritchie</author>
+<price>$49.95</price>
+<isbn>0-13-235088-2</isbn>
+
+</book>
+<book>
+<title>The C++ Programming Language</title>
+<author>Bjarne Stroustrup</author>
+<price>$69.95</price>
+<isbn>0-13-235088-3</isbn>
+</book>
+<book>
+<title>Data Communications and Networking</title>
+<author>Behrouz A. Forouzan</author>
+<price>$67.55</price>
+<isbn>0-07-296775-7</isbn>
+</book>
+<book>
+<title>Introduction to Algorithms</title>
+<author>Cormen, Thomas H</author>
+<price>$80.00</price>
+<isbn>0-26-203384-4</isbn>
+</book>
+<book>
+<title>Competitive Programmer's Handbook</title>
+<author>Antii Laaksonen</author>
+<price>$30.00</price>
+<isbn>9-78-303039-3</isbn>
+</book>
+<book>
+<title>Cracking the Coding Interview</title>
+<author>Gayle Laakmann</author>
+<price>$46.80</price>
+
+<isbn>1-45-059320-8</isbn>
+</book>
+</book>

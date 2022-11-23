@@ -114,8 +114,8 @@ check_login();
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">Total Admin's</div>
-                      <?php $sql = "SELECT id from tbladmin";
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Total Requests</div>
+                      <?php $sql = "SELECT * from requests";
                       $query = $dbh -> prepare($sql);
                       $query->execute();
                       $results=$query->fetchAll(PDO::FETCH_OBJ);

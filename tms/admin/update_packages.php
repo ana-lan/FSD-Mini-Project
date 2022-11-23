@@ -10,8 +10,12 @@ if(isset($_POST['submit']))
   $pprice=$_POST['packageprice']; 
   $pfeatures=$_POST['packagefeatures'];
   $pdetails=$_POST['packagedetails']; 
+  $bookings=intval($_POST['avail_bookings']);
+  $month=$_POST['avail_month'];
+
   $pimage=$_FILES["packageimage"]["name"];
-  $sql="update TblTourPackages set PackageName=:pname,PackageType=:ptype,PackageLocation=:plocation,PackagePrice=:pprice,PackageFetures=:pfeatures,PackageDetails=:pdetails where PackageId=:pid";
+
+  $sql="update TblTourPackages set PackageName=:pname,PackageType=:ptype,PackageLocation=:plocation,PackagePrice=:pprice,PackageFetures=:pfeatures,PackageDetails=:pdetails,AvailableBookings=:bookings,avail_month=:month where PackageId=:pid";
   $query = $dbh->prepare($sql);
   $query->bindParam(':pname',$pname,PDO::PARAM_STR);
   $query->bindParam(':ptype',$ptype,PDO::PARAM_STR);
@@ -19,6 +23,8 @@ if(isset($_POST['submit']))
   $query->bindParam(':pprice',$pprice,PDO::PARAM_STR);
   $query->bindParam(':pfeatures',$pfeatures,PDO::PARAM_STR);
   $query->bindParam(':pdetails',$pdetails,PDO::PARAM_STR);
+  $query->bindParam(':bookings',$bookings,PDO::PARAM_INT);
+  $query->bindParam(':month',$month,PDO::PARAM_STR);
   $query->bindParam(':pid',$pid,PDO::PARAM_STR);
   $query->execute();
   $msg="Package Updated Successfully";
@@ -126,7 +132,7 @@ if(isset($_POST['submit']))
                         <div class="form-group">
                           <label for="focusedinput" class="col-sm-2 control-label">Package Type</label>
                           <div class="col-sm-8">
-                            <input type="text" class="form-control" name="packagetype" id="packagetype" placeholder=" Package Type eg- Family Package / Couple Package" value="<?php echo htmlentities($result->PackageType);?>" required>
+                            <input type="text" class="form-control" name="packagetype" id="packagetype" placeholder=" Package Type" value="<?php echo htmlentities($result->PackageType);?>" required>
                           </div>
                         </div>
 
@@ -145,9 +151,23 @@ if(isset($_POST['submit']))
                         </div>
 
                         <div class="form-group">
+                          <label for="focusedinput" class="col-sm-2 control-label">Bookings</label>
+                          <div class="col-sm-8">
+                          <input type="text" class="form-control" name="avail_bookings" id="avail_bookings" placeholder=" No. of bookings" value="<?php echo htmlentities($result->AvailableBookings);?>" required>
+                          </div>
+                        </div>  
+
+                        <div class="form-group">
+                          <label for="focusedinput" class="col-sm-2 control-label">Month</label>
+                          <div class="col-sm-8">
+                          <input type="text" class="form-control" name="avail_month" id="avail_month" placeholder=" Month" value="<?php echo htmlentities($result->avail_month);?>" required>
+                          </div>
+                        </div>  
+
+                        <div class="form-group">
                           <label for="focusedinput" class="col-sm-2 control-label">Package Features</label>
                           <div class="col-sm-8">
-                            <input type="text" class="form-control" name="packagefeatures" id="packagefeatures" placeholder="Package Features Eg-free Pickup-drop facility" value="<?php echo htmlentities($result->PackageFetures);?>" required>
+                            <input type="text" class="form-control" name="packagefeatures" id="packagefeatures" placeholder="Package Features" value="<?php echo htmlentities($result->PackageFetures);?>" required>
                           </div>
                         </div>    
 
@@ -171,6 +191,7 @@ if(isset($_POST['submit']))
                             <?php echo htmlentities($result->UpdationDate);?>
                           </div>
                         </div>
+
                         <div class="row">
                           <div class="col-sm-8 col-sm-offset-2">
                             <button type="submit" name="submit" class="btn-primary btn">Update</button>

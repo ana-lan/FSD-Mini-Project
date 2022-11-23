@@ -35,6 +35,7 @@
       <span>Bookings</span>
     </a>
   </li>
+  
   <li class="nav-item">
     <a class="nav-link" href="manage_users.php">
       <i class="fas fa-fw fa-user"></i>
@@ -53,5 +54,11 @@
         <a class="collapse-item" href="Permissions.php">User Permissions</a>
       </div>
     </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="manage_stats.php">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Statistics</span>
+    </a>
   </li>
 </ul>

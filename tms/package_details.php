@@ -6,12 +6,14 @@ if(isset($_POST['submit2']))
 {
 	$pid=intval($_GET['pkgid']);
 	$useremail=$_SESSION['login'];
+	$num=$_POST['number'];
+	$num2=$_POST['number2'];
+
 	$fromdate=$_POST['fromdate'];
 	$todate=$_POST['todate'];
 	$comment=$_POST['comment'];
 	$status=0;
-	$num=$_POST['number'];
-	$num2=$_POST['number2'];
+	
 
 	$location=$_POST['location'];
 	$cost=0;
@@ -242,7 +244,18 @@ if(isset($_POST['submit2']))
 											if($location=="delhi")
 												$cost+=5000;
 											
-											$requests
+											$pid=intval($_GET['pkgid']);
+											$useremail=$_SESSION['login'];
+											$num=$_POST['number'];
+											$num2=$_POST['number2'];
+
+											$sql2="INSERT INTO requests(UserEmail,RequestDate,PackageId,NoOfkids,NoOfadults) VALUES(:useremail,now(),:pid,:ppl,:children)";
+											$query2 = $dbh->prepare($sql2);
+											$query2->bindParam(':useremail',$useremail,PDO::PARAM_STR);
+											$query2->bindParam(':pid',$pid,PDO::PARAM_INT);
+											$query2->bindParam(':ppl',$num,PDO::PARAM_STR);
+											$query2->bindParam(':children',$num2,PDO::PARAM_STR);
+											$query2->execute();
 
 											echo "<h3>$cost</h3>" ; 
 											echo "<script>alert('cost is $cost')</script>" ; 

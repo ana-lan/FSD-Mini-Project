@@ -10,8 +10,11 @@ if(isset($_POST['submit']))
   $pfeatures=$_POST['packagefeatures'];
   $pdetails=$_POST['packagedetails']; 
   $pimage=$_FILES["packageimage"]["name"];
+  $bookings=intval($_POST['avail_bookings']);
+  $month=$_POST['month'];
+
   move_uploaded_file($_FILES["packageimage"]["tmp_name"],"pacakgeimages/".$_FILES["packageimage"]["name"]);
-  $sql="INSERT INTO TblTourPackages(PackageName,PackageType,PackageLocation,PackagePrice,PackageFetures,PackageDetails,PackageImage) VALUES(:pname,:ptype,:plocation,:pprice,:pfeatures,:pdetails,:pimage)";
+  $sql="INSERT INTO TblTourPackages(PackageName,PackageType,PackageLocation,PackagePrice,PackageFetures,PackageDetails,PackageImage,AvailableBookings,avail_month) VALUES(:pname,:ptype,:plocation,:pprice,:pfeatures,:pdetails,:pimage,:booking,:month)";
   $query = $dbh->prepare($sql);
   $query->bindParam(':pname',$pname,PDO::PARAM_STR);
   $query->bindParam(':ptype',$ptype,PDO::PARAM_STR);
@@ -20,6 +23,8 @@ if(isset($_POST['submit']))
   $query->bindParam(':pfeatures',$pfeatures,PDO::PARAM_STR);
   $query->bindParam(':pdetails',$pdetails,PDO::PARAM_STR);
   $query->bindParam(':pimage',$pimage,PDO::PARAM_STR);
+  $query->bindParam(':booking',$bookings,PDO::PARAM_INT);
+  $query->bindParam(':month',$month,PDO::PARAM_STR);
   $query->execute();
   $lastInsertId = $dbh->lastInsertId();
   if($lastInsertId)
@@ -113,47 +118,56 @@ if(isset($_POST['submit']))
                   <form class="form-sample"  method="post" enctype="multipart/form-data">
 
                     <div class="row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-sm-6">
                         <label class="col-sm-12 pl-0 pr-0">National Park Name</label>
                         <div class="col-sm-12 pl-0 pr-0">
                           <input type="text" class="form-control" name="packagename" id="packagename" placeholder="Create National Park" required>
                         </div>
                       </div>
-                      <div class="form-group col-md-6 pl-md-0">
+                      <div class="form-group col-sm-6 pl-md-0">
                         <label class="col-sm-12 pl-0 pr-0">National Park Type</label>
                         <div class="col-sm-12 pl-0 pr-0">
-                          <input type="text" class="form-control" name="packagetype" id="packagetype" placeholder=" National Park Type eg- Outdoor / Indoor" required>
+                          <input type="text" class="form-control" name="packagetype" id="packagetype" placeholder=" National Park Type" required>
                         </div>
                       </div>
                     </div>
 
                     <div class="row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-sm-6">
                         <label class="col-sm-12 pl-0 pr-0">National Park Location</label>
                         <div class="col-sm-12 pl-0 pr-0">
                          <input type="text" class="form-control" name="packagelocation" id="packagelocation" placeholder=" National Park Location" required>
                        </div>
                      </div>
-                     <div class="form-group col-md-6 pl-md-0">
+
+
+                      
+
+                     <div class="form-group col-sm-6 pl-md-0">
                       <label class="col-sm-12 pl-0 pr-0">Price in INR</label>
                       <div class="col-sm-12 pl-0 pr-0">
-                        <input type="text" class="form-control" name="packageprice" id="packageprice" placeholder=" Price is INR" required>
+                        <input type="text" class="form-control" name="packageprice" id="packageprice" placeholder=" Price in INR" required>
                       </div>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-md-6 pl-md-0">
-                      <label class="col-sm-12 pl-0 pr-0">National Park Details</label>
-                      <div class="col-sm-12 pl-0 pr-0">
-                        <textarea class="form-control" rows="5" cols="50" name="packagedetails" id="packagedetails" placeholder="Package Details" required></textarea> 
-                      </div>
+                  <div class="form-group col-sm-6">
+                        <label class="col-sm-12 pl-0 pr-0">Month</label>
+                        <div class="col-sm-6 pl-0 pr-0">
+                         <input type="text" class="form-control" name="month" id="month" placeholder="Month" required>
                     </div>
-                    <div class="form-group col-md-6">
+                    <br/>
+                    <div class="form-group col-sm-6 pl-md-0">
                       <label class="col-sm-12 pl-0 pr-0">National Park Features</label>
                       <div class="col-sm-12 pl-0 pr-0">
-                        <input type="text" class="form-control" name="packagefeatures" id="packagefeatures" placeholder="Package Features Eg-free Pickup-drop facility" required>
+                        <input type="text" class="form-control" name="packagefeatures" id="packagefeatures" placeholder="Package Features" required>
                       </div>
+                    </div>
+                    <div class="form-group col-sm-6 pl-md-0">
+                        <label class="col-sm-12 pl-0 pr-0">No. of bookings</label>
+                        <div class="col-sm-6 pl-0 pr-0">
+                         <input type="text" class="form-control" name="avail_bookings" id="avail_bookings" placeholder="No. of bookings" required>
                     </div>
                   </div>
 
@@ -163,12 +177,29 @@ if(isset($_POST['submit']))
                       <div class="col-sm-12 pl-0 pr-0">
                         <input type="file" name="packageimage" id="packageimage" required>
                       </div>
+                    </div>
                     </div> 
-                  </div>   
+                    
+                  </div>  
+                  
+                  <div class="form-group col-sm-6 pl-md-0">
+                      <label class="col-sm-12 pl-0 pr-0">National Park Details</label>
+                      <div class="col-sm-12 pl-0 pr-0">
+                        <textarea class="form-control" rows="5" cols="50" name="packagedetails" id="packagedetails" placeholder="Package Details" required></textarea> 
+                  </div>
+                  <br/>
+                  <div class="row">
+                    <div class="form-group col-sm-6 ">
+                      <button type="submit" name="submit" class="btn-primary btn mr-4">Create</button>
+                      <button type="reset" class="btn-inverse btn ">Reset</button>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      
+                    </div>
+                  </div>
 
-                  <button type="submit" name="submit" class="btn-primary btn">Create</button>
-
-                  <button type="reset" class="btn-inverse btn">Reset</button>
+                    
+                </div>
                 </form>
               </div>
             </div>

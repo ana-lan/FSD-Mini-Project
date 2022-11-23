@@ -58,6 +58,7 @@ check_login();
                         <th>Location</th>
                         <th>Price</th>
                         <th>Creation Date</th>
+                        <th>Available Bookings</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -77,8 +78,9 @@ check_login();
                             <td><?php echo htmlentities($result->PackageName);?></td>
                             <td><?php echo htmlentities($result->PackageType);?></td>
                             <td><?php echo htmlentities($result->PackageLocation);?></td>
-                            <td>$<?php echo htmlentities($result->PackagePrice);?></td>
+                            <td>₹<?php echo htmlentities($result->PackagePrice);?></td>
                             <td><?php echo htmlentities($result->Creationdate);?></td>
+                            <td><?php echo htmlentities($result->AvailableBookings);?></td>
                             <td><a href="update_packages.php?pid=<?php echo htmlentities($result->PackageId);?>"><button type="button" class="btn btn-primary btn-sm">Edit</button></a></td>
                           </tr>
                           <?php 

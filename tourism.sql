@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2022 at 07:38 PM
+-- Generation Time: Nov 23, 2022 at 07:46 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -52,13 +52,20 @@ INSERT INTO `permissions` (`id`, `permission`, `createuser`, `deleteuser`, `crea
 --
 
 CREATE TABLE `requests` (
-  `CustomerId` int(5) NOT NULL,
   `RequestId` int(5) NOT NULL,
-  `RequestDate` date NOT NULL,
+  `UserEmail` varchar(50) NOT NULL,
+  `RequestDate` datetime NOT NULL,
   `PackageId` int(5) NOT NULL,
   `NoOfkids` int(5) NOT NULL,
   `NoOfadults` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `requests`
+--
+
+INSERT INTO `requests` (`RequestId`, `UserEmail`, `RequestDate`, `PackageId`, `NoOfkids`, `NoOfadults`) VALUES
+(1, 'janhavikokadwar@gmail.com', '2022-11-23 23:45:15', 3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -71,6 +78,15 @@ CREATE TABLE `statistics` (
   `enquiry` int(50) NOT NULL,
   `booking` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `statistics`
+--
+
+INSERT INTO `statistics` (`packageid`, `enquiry`, `booking`) VALUES
+(1, 5, 5),
+(3, 8, 2),
+(2, 9, 9);
 
 -- --------------------------------------------------------
 
@@ -151,7 +167,8 @@ INSERT INTO `tblbooking` (`BookingId`, `PackageId`, `UserEmail`, `FromDate`, `To
 (33, 4, 'janhavikokadwar@gmail.com', '2022-11-17', '2022-11-20', 'delhi', 'GAGA', '2022-11-20 18:17:49', 0, NULL, NULL, 4, 4),
 (34, 4, 'janhavikokadwar@gmail.com', '2022-11-18', '2022-11-21', 'delhi', 'ff', '2022-11-20 18:22:44', 0, NULL, NULL, 3, 3),
 (35, 4, 'janhavikokadwar@gmail.com', '2022-11-18', '2022-11-23', 'delhi', 'GG', '2022-11-20 18:23:59', 0, NULL, NULL, 4, 4),
-(36, 5, 'janhavikokadwar@gmail.com', '2022-11-19', '2022-11-21', 'mumbai', 'GWAK', '2022-11-20 18:26:02', 0, NULL, NULL, 10, 5);
+(36, 5, 'janhavikokadwar@gmail.com', '2022-11-19', '2022-11-21', 'mumbai', 'GWAK', '2022-11-20 18:26:02', 0, NULL, NULL, 10, 5),
+(37, 10, 'janhavikokadwar@gmail.com', '2022-11-17', '2022-11-29', 'delhi', 'fsd', '2022-11-23 17:57:54', 0, NULL, NULL, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -206,12 +223,16 @@ CREATE TABLE `tbltourpackages` (
 --
 
 INSERT INTO `tbltourpackages` (`PackageId`, `PackageName`, `PackageType`, `PackageLocation`, `avail_month`, `PackagePrice`, `PackageFetures`, `PackageDetails`, `PackageImage`, `Creationdate`, `UpdationDate`, `AvailableBookings`) VALUES
-(1, 'kidepo valley Np', 'General', 'Kullu Manali India', 'December 2022', 50000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'lake.jpg', '2017-05-13 14:23:44', '2022-11-20 16:56:57', 67),
+(1, 'kidepo valley Np', 'General', 'Kullu Manali India', 'February 2023', 50000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'lake.jpg', '2017-05-13 14:23:44', '2022-11-23 17:35:38', 67),
 (2, 'Entebbe Zoo', 'Indoor animals', 'Entebbe, Kampala,Uganda', 'December 2022', 5433, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'zoo.jpg', '2017-05-13 15:24:26', '2022-11-20 16:57:06', 100),
 (3, 'Marchision Falls NP', 'Outdoor animals', 'Demo Demo Demo Demo Demo Demo  test', 'January 2023', 1000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'mac4.jpg', '2017-05-13 16:00:58', '2022-11-20 16:57:32', 100),
 (4, 'Lake Mburo NP', 'Familty and Couple', 'Kerlal', 'December 2022', 2000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'images.jpg', '2017-05-13 22:39:37', '2022-11-20 18:23:59', 61),
 (5, 'Queen Elizabeth', 'Outdoor animals', 'Uganda', 'February 2023', 3000, 'Air Conditioning ,Balcony / Terrace,Cable / Satellite / Pay TV available,Ceiling Fan,Hairdryer', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'park6.jpg', '2017-05-13 22:42:10', '2022-11-20 18:26:02', 85),
-(6, 'Bwindi  NP', 'Outdoor animals', 'Indonesia', 'December 2022', 5000, 'Frree wifi, pickup and drop etc', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'bwindi5.jpg', '2017-05-14 08:01:08', '2022-11-20 16:57:20', 100);
+(6, 'Bwindi  NP', 'Outdoor animals', 'Indonesia', 'December 2022', 1000, 'Frree wifi, pickup and drop etc', 'Our holiday consulting is an extension of corporate travel management program and likewise we are in process of implementing online holiday solutions for clients. Apart from this we have invested heavily in employing and training our people as its primary asset differentiating between a dream and ordinary holiday. They recommend the must see places, and plan your itinerary with utmost care.\r\n\r\n', 'bwindi5.jpg', '2017-05-14 08:01:08', '2022-11-23 17:14:56', 69),
+(7, 'Ramthambore', 'Outdoor', 'Rajasthan', 'December 2022', 2000, 'NONE', 'TESTING', 'beauty2.png', '2022-11-23 17:28:23', NULL, 55),
+(8, 'UGANDA', 'T', 'T', 'December 2022', 6969, 'NONE', 'gg', 'download.png', '2022-11-23 17:44:38', NULL, 6969),
+(9, 'UGANDA', 'T', 'T', '6969', 6969, 'NONE', 'gg', 'download.png', '2022-11-23 17:45:58', NULL, 6969),
+(10, 'RERR', 'Outdoor', 'T', 'January 2023', 90007, 'NONE', 'eeee', 'graph.png', '2022-11-23 17:49:36', '2022-11-23 17:57:54', 6891);
 
 -- --------------------------------------------------------
 
@@ -258,6 +279,7 @@ ALTER TABLE `requests`
 -- Indexes for table `statistics`
 --
 ALTER TABLE `statistics`
+  ADD PRIMARY KEY (`enquiry`),
   ADD KEY `FOREIGNKEY` (`packageid`);
 
 --
@@ -303,6 +325,12 @@ ALTER TABLE `permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `requests`
+--
+ALTER TABLE `requests`
+  MODIFY `RequestId` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tbladmin`
 --
 ALTER TABLE `tbladmin`
@@ -312,7 +340,7 @@ ALTER TABLE `tbladmin`
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `BookingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `BookingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tblcompany`
@@ -324,7 +352,7 @@ ALTER TABLE `tblcompany`
 -- AUTO_INCREMENT for table `tbltourpackages`
 --
 ALTER TABLE `tbltourpackages`
-  MODIFY `PackageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `PackageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tblusers`

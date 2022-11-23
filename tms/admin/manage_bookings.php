@@ -104,7 +104,7 @@ if(isset($_REQUEST['bckid']))
                         <th>Name</th>
                         <th>Mobile No.</th>
                         <th>Email Id</th>
-                        <th>RegDate </th>
+                        <th>Package </th>
                         <th>From /To </th>
                         <th>Comment </th>
                         <th>Status </th>
