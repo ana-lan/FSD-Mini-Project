@@ -104,15 +104,18 @@ if(isset($_REQUEST['bckid']))
                         <th>Name</th>
                         <th>Mobile No.</th>
                         <th>Email Id</th>
+                        
                         <th>Package </th>
+                        <th>Total </th>
+                        <th>Adults </th>
+                        <th>Children </th>
                         <th>From /To </th>
-                        <th>Comment </th>
                         <th>Status </th>
                         <th>Action </th>
                       </tr>
                     </thead>
                     <tbody>
-                     <?php $sql = "SELECT tblbooking.BookingId as bookid,tblusers.FullName as fname,tblusers.MobileNumber as mnumber,tblusers.EmailId as email,tbltourpackages.PackageName as pckname,tblbooking.PackageId as pid,tblbooking.FromDate as fdate,tblbooking.ToDate as tdate,tblbooking.Comment as comment,tblbooking.status as status,tblbooking.CancelledBy as cancelby,tblbooking.UpdationDate as upddate from tblusers join  tblbooking on  tblbooking.UserEmail=tblusers.EmailId join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId";
+                     <?php $sql = "SELECT tblbooking.NoOfAdults as adults, tblbooking.NoOfChildren as children, tblbooking.GrandTotal as GrandTotal, tblbooking.BookingId as bookid,tblusers.FullName as fname,tblusers.MobileNumber as mnumber,tblusers.EmailId as email,tbltourpackages.PackageName as pckname,tblbooking.PackageId as pid,tblbooking.FromDate as fdate,tblbooking.ToDate as tdate,tblbooking.status as status,tblbooking.CancelledBy as cancelby,tblbooking.UpdationDate as upddate from tblusers join  tblbooking on  tblbooking.UserEmail=tblusers.EmailId join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId";
                      $query = $dbh -> prepare($sql);
                      $query->execute();
                      $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -127,8 +130,10 @@ if(isset($_REQUEST['bckid']))
                             <td><?php echo htmlentities($result->mnumber);?></td>
                             <td><?php echo htmlentities($result->email);?></td>
                             <td><a href="update_packages.php?pid=<?php echo htmlentities($result->pid);?>"><?php echo htmlentities($result->pckname);?></a></td>
+                            <td><?php echo htmlentities($result->GrandTotal);?></td>
+                            <td><?php echo htmlentities($result->adults);?></td>
+                            <td><?php echo htmlentities($result->children);?></td>
                             <td><?php echo htmlentities($result->fdate);?> To <?php echo htmlentities($result->tdate);?></td>
-                            <td><?php echo htmlentities($result->comment);?></td>
                             <td><?php if($result->status==0)
                             {
                               echo "Pending";

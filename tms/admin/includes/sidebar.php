@@ -58,6 +58,12 @@
     </div>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="view_requests.php">
+    <i class="fab fa-fw fa-wpforms"></i>
+      <span>Requests</span>
+    </a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link" href="manage_stats.php">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>Statistics</span>
@@ -69,4 +75,5 @@
       <span>Feedbacks</span>
     </a>
   </li>
+  
 </ul>
