@@ -138,9 +138,9 @@ include('includes/config.php');
               <img src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-responsive" alt="">
             </div>
             <div class="col-md-6 room-midle wow fadeInUp animated" data-wow-delay=".5s">
-              <h4>National park Name: <?php echo htmlentities($result->PackageName);?></h4>
-              <h6>National park Type : <?php echo htmlentities($result->PackageType);?></h6>
-              <p><b>National park Location :</b> <?php echo htmlentities($result->PackageLocation);?></p>
+              <h4>Package Name: <?php echo htmlentities($result->PackageName);?></h4>
+              <h6>Package Type : <?php echo htmlentities($result->PackageType);?></h6>
+              <p><b>Package Location :</b> <?php echo htmlentities($result->PackageLocation);?></p>
               <p><b>Features</b> <?php echo htmlentities($result->PackageFetures);?></p>
             </div>
             <div class="col-md-3 room-right wow fadeInRight animated" data-wow-delay=".5s">
@@ -314,13 +314,29 @@ include('includes/config.php');
     </div>
     <div class="row mrgn30">
       <div class="col-sm-12 col-md-8">
+        <?php 
+          if(isset($_POST['feedback']) && isset($_SESSION['login']))
+          {
+            $sql3="INSERT INTO feedback(Name,Email,Message) values(:name,:useremail,:msg);";
+            $query3 = $dbh->prepare($sql3);
+
+            $query3->bindParam(':name',$_POST['pname'],PDO::PARAM_STR);
+            $query3->bindParam(':useremail',$_POST['pemail'],PDO::PARAM_STR);
+            $query3->bindParam(':msg',$_POST['pmessage'],PDO::PARAM_STR);
+            $query3->execute();
+          }
+          else if(isset($_POST['feedback']))
+          {
+            echo "<script>alert('Please Sign in to submit feedback')</script>";
+          }
+        ?>
         <!--NOTE: Update your email Id in "contact_me.php" file in order to receive emails from your contact form-->
-        <form name="sentMessage" id="contactForm"  validate>
+        <form name="sentMessage" id="contactForm"  method="post" validate>
           <h3>Contact Form</h3>
           <div class="control-group">
             <div class="controls">
               <input type="text" class="form-control" 
-              placeholder="Full Name" id="name" required
+              placeholder="Full Name" id="name" name="pname"
               data-validation-required-message="Please enter your name" />
               <p class="help-block"></p>
             </div>
@@ -328,7 +344,7 @@ include('includes/config.php');
           <div class="control-group" style="margin-bottom: 8px;">
             <div class="controls">
               <input type="email" class="form-control" placeholder="Email" 
-              id="email" required
+              id="email" name="pemail"
               data-validation-required-message="Please enter your email" />
             </div>
           </div> 	
@@ -336,14 +352,14 @@ include('includes/config.php');
           <div class="control-group" style="margin-bottom: 8px;">
             <div class="controls">
               <textarea rows="10" cols="100" class="form-control" 
-              placeholder="Message" id="message" required
+              placeholder="Message" id="message" name="pmessage"
               data-validation-required-message="Please enter your message" minlength="5" 
               data-validation-minlength-message="Min 5 characters" 
               maxlength="999" style="resize:none"></textarea>
             </div>
           </div> 		 
           <div id="success"> </div> <!-- For success/fail messages -->
-          <button type="submit" class="btn btn-primary pull-right">Send</button><br />
+          <button type="submit" name="feedback" class="btn btn-primary pull-right">Send</button><br />
         </form>
       </div> 
 
@@ -356,7 +372,7 @@ include('includes/config.php');
       <div class="col-sm-12 col-md-4">
         <h4>Address:</h4>
         <address>
-          Mogo Mogo company :)<br>
+          MIT Students Company<br>
           12th, street<br>
           India.
           <br>

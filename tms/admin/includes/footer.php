@@ -2,7 +2,7 @@
  	<div class="container my-auto">
  		<div class="copyright text-center my-auto">
  			<span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
- 				<b><a href="https://code4berry.com" target="_blank">code4berry</a></b>
+ 				<b><a href="https://mitwpu.edu.in/" target="_blank">mit students</a></b>
  			</span>
  		</div>
  	</div>

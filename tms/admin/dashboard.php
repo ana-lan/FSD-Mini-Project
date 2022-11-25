@@ -130,6 +130,27 @@ check_login();
                 </div>
               </div>
             </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Total Feedbacks</div>
+                      <?php $sql = "SELECT * from feedback";
+                      $query = $dbh -> prepare($sql);
+                      $query->execute();
+                      $results=$query->fetchAll(PDO::FETCH_OBJ);
+                      $cnt2=$query->rowCount();
+                      ?>    
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo htmlentities($cnt2);?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-warning"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- Invoice Example -->

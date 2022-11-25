@@ -119,24 +119,24 @@ if(isset($_POST['submit']))
 
                     <div class="row">
                       <div class="form-group col-sm-6">
-                        <label class="col-sm-12 pl-0 pr-0">National Park Name</label>
+                        <label class="col-sm-12 pl-0 pr-0">Package Name</label>
                         <div class="col-sm-12 pl-0 pr-0">
-                          <input type="text" class="form-control" name="packagename" id="packagename" placeholder="Create National Park" required>
+                          <input type="text" class="form-control" name="packagename" id="packagename" placeholder="Create  Package" required>
                         </div>
                       </div>
                       <div class="form-group col-sm-6 pl-md-0">
-                        <label class="col-sm-12 pl-0 pr-0">National Park Type</label>
+                        <label class="col-sm-12 pl-0 pr-0">Package Type</label>
                         <div class="col-sm-12 pl-0 pr-0">
-                          <input type="text" class="form-control" name="packagetype" id="packagetype" placeholder=" National Park Type" required>
+                          <input type="text" class="form-control" name="packagetype" id="packagetype" placeholder=" Package Type" required>
                         </div>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="form-group col-sm-6">
-                        <label class="col-sm-12 pl-0 pr-0">National Park Location</label>
+                        <label class="col-sm-12 pl-0 pr-0">Package Location</label>
                         <div class="col-sm-12 pl-0 pr-0">
-                         <input type="text" class="form-control" name="packagelocation" id="packagelocation" placeholder=" National Park Location" required>
+                         <input type="text" class="form-control" name="packagelocation" id="packagelocation" placeholder=" Package Location" required>
                        </div>
                      </div>
 
@@ -159,7 +159,7 @@ if(isset($_POST['submit']))
                     </div>
                     <br/>
                     <div class="form-group col-sm-6 pl-md-0">
-                      <label class="col-sm-12 pl-0 pr-0">National Park Features</label>
+                      <label class="col-sm-12 pl-0 pr-0">Package Features</label>
                       <div class="col-sm-12 pl-0 pr-0">
                         <input type="text" class="form-control" name="packagefeatures" id="packagefeatures" placeholder="Package Features" required>
                       </div>
@@ -173,7 +173,7 @@ if(isset($_POST['submit']))
 
                   <div class="row">  
                     <div class="form-group col-md-4 ">
-                      <label class="col-sm-12 pl-0 pr-0 ">Attach National Park Image</label>
+                      <label class="col-sm-12 pl-0 pr-0 ">Attach Package Image</label>
                       <div class="col-sm-12 pl-0 pr-0">
                         <input type="file" name="packageimage" id="packageimage" required>
                       </div>
@@ -183,7 +183,7 @@ if(isset($_POST['submit']))
                   </div>  
                   
                   <div class="form-group col-sm-6 pl-md-0">
-                      <label class="col-sm-12 pl-0 pr-0">National Park Details</label>
+                      <label class="col-sm-12 pl-0 pr-0">Package Details</label>
                       <div class="col-sm-12 pl-0 pr-0">
                         <textarea class="form-control" rows="5" cols="50" name="packagedetails" id="packagedetails" placeholder="Package Details" required></textarea> 
                   </div>

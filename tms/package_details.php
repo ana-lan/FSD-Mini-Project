@@ -24,13 +24,26 @@ if(isset($_POST['submit2']))
 	$query->execute();
 	$results=$query->fetch();
 
+	$days=(strtotime($todate)-strtotime($fromdate))/86400;
+	$stmt = $dbh->prepare("SELECT PackagePrice from tbltourpackages where PackageId=:pid");
+	$stmt->execute([':pid' => $pid]); 
+	$user = $stmt->fetch();
+	$base=intval($user[0]);
+
+
+	$cost = (intval($base)*intval($days)*intval($num)*intval($num2)/2);
+
+	if($location=="delhi")
+		$cost+=5000;
+
+
 	if(intval($results[0])<($num+$num2))
 	{
 		echo "<script>alert('Not enough slots available')</script>";
 	}
 	else
 	{
-		$sql="INSERT INTO tblbooking(PackageId,UserEmail,FromDate,ToDate,Start_location,Comment,status,NoOfAdults,NoOfChildren) VALUES(:pid,:useremail,:fromdate,:todate,:location,:comment,:status,:ppl,:children)";
+		$sql="INSERT INTO tblbooking(PackageId,UserEmail,FromDate,ToDate,Start_location,Comment,status,NoOfAdults,NoOfChildren,GrandTotal) VALUES(:pid,:useremail,:fromdate,:todate,:location,:comment,:status,:ppl,:children,:total)";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':pid',$pid,PDO::PARAM_STR);
 		$query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
@@ -41,6 +54,7 @@ if(isset($_POST['submit2']))
 		$query->bindParam(':status',$status,PDO::PARAM_STR);
 		$query->bindParam(':ppl',$num,PDO::PARAM_STR);
 		$query->bindParam(':children',$num2,PDO::PARAM_STR);
+		$query->bindParam(':total',$cost,PDO::PARAM_INT);
 		$query->execute();
 		$lastInsertId = $dbh->lastInsertId();
 
@@ -256,6 +270,8 @@ if(isset($_POST['submit2']))
 											$query2->bindParam(':ppl',$num,PDO::PARAM_STR);
 											$query2->bindParam(':children',$num2,PDO::PARAM_STR);
 											$query2->execute();
+
+											
 
 											echo "<h3>$cost</h3>" ; 
 											echo "<script>alert('cost is $cost')</script>" ; 

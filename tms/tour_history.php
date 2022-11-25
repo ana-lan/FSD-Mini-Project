@@ -11,6 +11,10 @@ else{
   {
     $bid=intval($_GET['bkid']);
     $email=$_SESSION['login'];
+
+    echo "$bid<br/>";
+    echo "$email<br/>";
+
     $sql ="SELECT FromDate FROM tblbooking WHERE UserEmail=:email and BookingId=:bid";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR); 
@@ -252,7 +256,7 @@ else{
                     {
                       ?><td>Cancelled</td>
                     <?php } else {?>
-                      <td><a href="tour-history.php?bkid=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Do you really want to cancel booking')" >Cancel</a></td>
+                      <td><a href="tour_history.php?bkid=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Do you really want to cancel booking')" >Cancel</a></td>
                     <?php }?>
                   </tr>
                   <?php $cnt=$cnt+1; 
